@@ -1,0 +1,78 @@
+{% extends 'pgm/base.html' %}
+{% load l10n %}
+
+{% block content %}
+  <div class="col-sm-12">
+
+    <form action="{% url 'remessacdl' %}" method="post" id="_formremessacdl">
+    {% csrf_token %}
+    <br>
+    <table class="table table-hover datatables">
+        <thead>
+            <tr>
+                <th><input type="button" id="_enviaremessacdl" value="Remessa CDL" class="btn btn-primary"></th>
+                <th colspan="2">Filtrar por: <input type="radio" checked class="form-check-inline" name="radio_doc" value="0">Todos
+                                            <input type="radio" class="form-check-inline" name="radio_doc" value="1">CPF
+                                            <input type="radio" class="form-check-inline" name="radio_doc" value="2">CNPJ
+                </th>
+                <th>A partir de: </th>
+                <th><div id="column_search_year"></div></th>
+            </tr>
+            <tr>
+                <th>Nº da CDA</th>
+                <th>Dados da CDA</th>
+                <th>CPF/CNPJ nº</th>
+                <th>Ano Origem</th>
+                <th>Total CDA</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for i in list %}
+                <tr>
+                    <td>
+
+                        <span class="span-font-large">
+                            <a href="{% url 'cdadetail' idcda=i.cda %}"><i class="fa fa-folder-open"></i><span class="nav-label"><strong> {{ i.cda }}</strong></span></a>
+                        </span>
+
+                        <br>
+
+                        <div class="checkbox">
+                            <label style="font-size: 1.0em">
+                                <input type="checkbox" value="{{ i.cda }}" name="checkcdl" checked>
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                            </label>
+                        </div>
+
+                    </td>
+                    <td>
+                        <span><strong>Contribuinte: </strong>{{ i.contrib_nome }}</span><br>
+                        <span><strong>Tipo Receita: </strong>{{ i.receita_tipo }} - <strong>Nº Inscrição: </strong>{{ i.inscricao_num }} -
+                        <strong>Tipo: </strong>{{ i.inscricao_tipo }}</span><br>
+                        <span><strong>Situação da CDA: </strong>{{ i.parcela_situa }} - <strong>Nº Parcelas: </strong>{{ i.parcelas }}</span><br>
+                        {% if i.processo_num %}
+                            <span><strong>Nº do Processo: </strong>{{ i.processo_num }} - <strong>Data do Processo: </strong>{{ i.processo_data }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ i.cpf_cnpj }}</td>
+                    <td>{{ i.debito_ano }}</td>
+                    <td>
+                        {{ i.total_cda|floatformat:2 }}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5"></th>
+            </tr>
+        </tfoot>
+    </table>
+
+  </form>
+
+  </div>
+
+{% endblock %}

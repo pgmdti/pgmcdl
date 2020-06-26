@@ -1,0 +1,98 @@
+{% extends 'pgm/base.html' %}
+{% load l10n %}
+{% load common %}
+
+{% block content %}
+    <br><br>
+  <div class="col-sm-12">
+
+
+    <table border="1" cellpadding="2" cellspacing="2">
+        {% for i in cda %}
+
+            {% if forloop.counter == 1 %}
+                    {% set anoant = i.debito_ano %}
+                    <tr>
+                        <th colspan="2">CDA nº: {{ i.cda }}</th>
+                        {% for t in totalcda %}
+                            <th colspan="3">Total CDA: {{ t.total_cda|floatformat:2 }}</th>
+                        {% endfor %}
+                        <th colspan="3">Situação: {{ i.parcela_situa }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="4">Nome: {{ i.contrib_nome }}</th>
+                        <th colspan="2">CPF/CNPJ nº: {{ i.cpf_cnpj }}</th>
+                        <th colspan="2">Nº Contribuite: <a href="{% url 'cdascontribuinte' doc=i.contrib_id %}" title="Listar CDA's deste contribuinte">{{ i.contrib_id }}</a></th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Inscrição nº {{ i.inscricao_num }}</th>
+                        <th colspan="2">Tipo: {{ i.inscricao_tipo }}</th>
+                        <th colspan="2">Processo nº {{ i.processo_num }}</th>
+                        <th colspan="2">Data: {{ i.processo_data }}</th>
+                    </tr>
+                    <tr class="bg-defoult text-white">
+                        <th colspan="8" class="text-center">Endereço</th>
+                    </tr>
+                    <tr>
+                        <td colspan="4">{{ i.logr_tipo }} {{ i.logr_nome }}, {{ i.logr_num }}</td>
+                        <td colspan="4">Compl: {{ i.logr_compl }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">{{ i.bairro_tipo }} {{ i.bairro_nome }}</td>
+                        <td colspan="2">{{ i.cidade }}</td>
+                        <td colspan="1">{{ i.uf }}</td>
+                        <td colspan="1">{{ i.cep }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">Email: {{ i.email }}</td>
+                        <td colspan="2">Fone: ({{ i.fixo_ddd }}) {{ i.fixo_num }}</td>
+                        <td colspan="2">Celular: ({{ i.cel_ddd }}) {{ i.cel_num }}</td>
+                    </tr>
+
+                    <tr class="bg-defoult text-white">
+                        <th>Nº Parcela</th>
+                        <th>Vencimento</th>
+                        <th>Valor Original</th>
+                        <th>Atualização</th>
+                        <th>Juros</th>
+                        <th>Multa</th>
+                        <th>Desconto</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Ano: {{ i.debito_ano }}</th>
+                        <th colspan="3">Data Documento: {{ i.documento_data|date:'d/m/Y' }}</th>
+                        <th colspan="3">Valor: {{ i.total_cda|floatformat:2 }}</th>
+                    </tr>
+            {% endif %}
+
+            {% set anoatu = i.debito_ano %}
+
+            {% ifnotequal anoatu anoant %}
+                <tr>
+                        <th colspan="2">Ano: {{ i.debito_ano }}</th>
+                        <th colspan="3">Data Documento: {{ i.documento_data|date:'d/m/Y' }}</th>
+                        <th colspan="3">Valor: {{ i.total_cda|floatformat:2 }}</th>
+                </tr>
+            {% endifnotequal %}
+
+            {% set anoant = anoatu %}
+
+             <tr>
+                <td>{{ i.parcela_num }}</td>
+                <td>{{ i.vencimento|date:'d/m/Y' }}</td>
+                <td>{{ i.debito_valor|floatformat:2 }}</td>
+                <td>{{ i.debito_atualizacao|floatformat:2 }}</td>
+                <td>{{ i.debito_juros|floatformat:2 }}</td>
+                <td>{{ i.debito_multa|floatformat:2 }}</td>
+                <td>{{ i.debito_desconto|floatformat:2 }}</td>
+                <td>{{ i.debito_atualizado|floatformat:2 }}</td>
+             </tr>
+
+        {% endfor %}
+
+    </table>
+    <br><br>
+  </div>
+
+{% endblock %}

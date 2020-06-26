@@ -1,0 +1,53 @@
+{% extends 'pgm/base.html' %}
+{% load humanize %}
+
+{% block content %}
+  <div class="col-sm-12">
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nº da Remessa</th>
+                <th>Data Geração</th>
+                <th>Ultima Alteração</th>
+                <th>Unidade Negócio</th>
+                <th>Arquivo Gerado?</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in list %}
+                <tr>
+                    <td>{{ i.remessa_id|stringformat:'06d' }}</td>
+                    <td>{{ i.data_movimento|date:'d/m/Y' }}</td>
+                    <td>{{ i.data_movimento_arquivo|date:'d/m/Y' }}</td>
+                    <td>{{ i.unidade_negocio }}</td>
+                    <td>{% if i.enviada %} Sim {% else %} Não {% endif %}</td>
+                    <td><a href="{% url 'download_remessa' idremessa=i.remessa_id %}" class="btn btn-sm btn-primary">Download</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<div class="text-center">
+
+    <span class="text-primary text-left">
+        Página {{ list.number }} de {{ list.paginator.num_pages }}
+    </span>
+
+    <ul class="pagination">
+        {% if list.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; Início</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ list.previous_page_number }}">Voltar</a></li>
+        {% endif %}
+        {% if list.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ list.next_page_number }}">Próximo</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ list.paginator.num_pages }}">Último &raquo;</a></li>
+        {% endif %}
+    </ul>
+
+</div>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'pgm/base.html' %}
+
+{% block content %}
+  <div class="col-sm-12">
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nº da CDA</th>
+                <th>Contribuinte</th>
+                <th>Total CDA</th>
+                <th>Tipo Receita</th>
+                <th>CPF/CNPJ nº</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in list %}
+                <tr>
+                    <td>{{ i.cda }}</td>
+                    <td>{{ i.contrib_nome }}</td>
+                    <td><span class="moneytable">{{ i.total_cda }}</span></td>
+                    <td>{{ i.receita_tipo }}</td>
+                    <td>{{ i.cpf_cnpj }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  
+<div class="text-center">
+
+    <span class="text-primary text-left">
+        Página {{ list.number }} de {{ list.paginator.num_pages }}
+    </span>
+
+    <ul class="pagination">
+        {% if list.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; Início</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ list.previous_page_number }}">Voltar</a></li>
+        {% endif %}
+        {% if list.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ list.next_page_number }}">Próximo</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ list.paginator.num_pages }}">Último &raquo;</a></li>
+        {% endif %}
+    </ul>
+
+</div>
+  
+  </div>
+
+{% endblock %}

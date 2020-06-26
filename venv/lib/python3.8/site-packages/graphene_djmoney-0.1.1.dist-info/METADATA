@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: graphene-djmoney
+Version: 0.1.1
+Summary: GraphQL Money types for Django using graphene and django-money (djmoney).
+Author: Paul Craciunoiu
+Author-email: paul@craciunoiu.net
+Requires-Python: >=3.7,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Requires-Dist: Django (>2)
+Requires-Dist: django-money (>=1.1,<2.0)
+Requires-Dist: graphene (<3)
+Requires-Dist: graphene-django (>=2)
+Requires-Dist: psycopg2-binary (>=2.8.5,<3.0.0)

@@ -1,0 +1,23 @@
+{% extends 'pgm/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <br><br>
+  <div class="col-sm-6 offset-sm-2">
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <h3>Buscar CDA</h3>
+        <br>
+        {% csrf_token %}
+        <label>Consultar por: </label>
+        <input type="radio" name="cpfcnpj" value="1" id="_cpf" checked>
+        <label for="_cpf" class="label">CPF</label>
+        <input type="radio" name="cpfcnpj" value="2" id="_cnpj">
+        <label for="_cnpj"class="label">CNPJ</label>
+        {{ form|crispy }}
+        <br>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+        <br><br>
+    </form>
+  </div>
+
+{% endblock %}

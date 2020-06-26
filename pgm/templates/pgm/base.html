@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="{% static 'css/pgm.css' %}" rel="stylesheet">
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{% static 'js/bootbox.min.js' %}"></script>
+    <script src="{% static 'js/jquery.maskMoney.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.js' %}"></script>
+    <script src="{% static 'js/pgm.js' %}"></script>
+
+    <title>PGM - Sistema de Envio de CDAs para a CDL</title>
+
+</head>
+
+<body>
+
+        <header class="header noPrint">
+          <nav class="navbar navbar-toggleable-md navbar-light pt-0 pb-0 ">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="float-left"> <a href="#" class="button-left"><span class="fa fa-fw fa-bars "></span></a> </div>
+            <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+              </ul>
+          </div>
+        </nav>
+      </header>
+<main>
+      <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-2 col-sm-4 sidebar noPrint">
+        <aside>
+          <div class="sidebar left ">
+            <div class="user-panel">
+              <div class="pull-left image">
+                <a href="{% url 'index' %}">
+                   <img src="{% static 'images/logopgm.jpg' %}"
+                        width="56" height="auto"
+                        class="rounded"
+                        alt="User Image">
+                </a>
+              </div>
+            </div>
+            <ul class="list-sidebar bg-defoult">
+              <li> <a href="#" data-toggle="collapse" data-target="#dashboard" class="collapsed active" > <i class="fa fa-th-large"></i> <span class="nav-label"> CDA's </span> <span class="fa fa-chevron-left pull-right"></span> </a>
+              <ul class="sub-menu collapse" id="dashboard">
+                <li class="active"><a href="{% url 'filter_one' %}">Filtrar</a></li>
+                <li class="active"><a href="{% url 'cdas_antigas1' %}">CDA's Ant (Sintético)</a></li>
+                <li class="active"><a href="{% url 'cdas_antigas2' %}">CDA's Ant (Analítico)</a></li>
+                <li class="active"><a href="{% url 'search_cpfcnpj' %}">Buscar</a></li>
+              </ul>
+            </li>
+            <li> <a href="#" data-toggle="collapse" data-target="#products" class="collapsed active" > <i class="fa fa-bars"></i> <span class="nav-label">CDL</span> <span class="fa fa-chevron-left pull-right"></span> </a>
+            <ul class="sub-menu collapse" id="products">
+              <li class="active"><a href="#">Inclusões</a></li>
+              <li class="active"><a href="#">Exclusões</a></li>
+              <li class="active"><a href="#">Rejeitadas</a></li>
+            </ul>
+          </li>
+          <li> <a href="#" data-toggle="collapse" data-target="#tables" class="collapsed active" ><i class="fa fa-laptop"></i> <span class="nav-label">Arquivo</span><span class="fa fa-chevron-left pull-right"></span></a>
+          <ul  class="sub-menu collapse" id="tables" >
+            <li><a href="{% url 'upload' %}">SEMF</a></li>
+            <li><a href="{% url 'uploadprocs' %}">TJ</a></li>
+            <li><a href="{% url 'listar_remessas' %}">CDL Remessa</a></li>
+            <li><a href="#">CDL Retorno</a></li>
+            <li><a href="{% url 'valida_cep' %}" class="mySpinner">Valida CEP</a></li>
+          </ul>
+        </li>
+    </ul>
+    </div>
+    </aside>
+    </div>
+
+     <div class="col-md-10 col-sm-8">
+    {% block content %}
+    {% endblock %}
+     </div>
+
+    </div>
+    </div>
+</main>
+<div class="modal transparent z-depth-0" id="modalajaxloader" tabindex="-1">
+	<div class="modal-content">
+		<div class="align-content-center">
+			<img id="modalajaximg" src="{% static 'images/ajax-loader.gif' %}" >
+		</div>
+	</div>
+</div>
+<footer class="navbar-inverse">
+		<br>
+		<div class="container text-right">
+			<p class="footer-text-white">Powered by Francisco Costa &copy; 2018</p>
+		</div>
+</footer>
+</body>
+</html>

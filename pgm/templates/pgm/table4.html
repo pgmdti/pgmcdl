@@ -1,0 +1,81 @@
+{% extends 'pgm/base.html' %}
+{% load l10n %}
+{% load common %}
+
+{% block content %}
+  <div class="col-sm-12">
+
+    <br>
+    <table border="1" cellspacing="2">
+        <thead>
+            <tr>
+                <th>Nº da CDA (Anterior)</th>
+                <th>Nome Contribuinte</th>
+                <th>Quantidade Parcelas</th>
+                <th>Número Processo Judicial</th>
+                <th>Valor Atualizado</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for i in list %}
+                {% if forloop.counter == 1 %}
+                    {% set cdaanterior = i.cda_ant %}
+                    <tr>
+                        <td>{{ i.cda_ant }}</td>
+                        <td>{{ i.contrib_nome }}</td>
+                        <td>{{ i.parcelas }}</td>
+                        <td>{{ i.processo_num }}</td>
+                        <td>{{ i.total_cda|floatformat:2 }}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>Ano Débito</th>
+                        <th>Nº Parcela</th>
+                        <th>Vencimento</th>
+                        <th>Valor Atualizado</th>
+                    </tr>
+                {% endif %}
+
+                {% set cdaatual = i.cda_ant %}
+
+                {% ifnotequal cdaanterior cdaatual %}
+                    <tr>
+                        <td>{{ i.cda_ant }}</td>
+                        <td>{{ i.contrib_nome }}</td>
+                        <td>{{ i.parcelas }}</td>
+                        <td>{{ i.processo_num }}</td>
+                        <td>{{ i.total_cda|floatformat:2 }}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>Ano Débito</th>
+                        <th>Nº Parcela</th>
+                        <th>Vencimento</th>
+                        <th>Valor Atualizado</th>
+                    </tr>
+                {% endifnotequal %}
+
+                <tr>
+                    <td></td>
+                    <td>{{ i.debito_ano }}</td>
+                    <td>{{ i.parcela_num }}</td>
+                    <td>{{ i.vencimento|date:'d/m/y' }}</td>
+                    <td>{{ i.debito_atualizado }}</td>
+                </tr>
+
+                {% set cdaanterior = cdaatual %}
+
+            {% endfor %}
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5"></th>
+            </tr>
+        </tfoot>
+    </table>
+
+  </div>
+
+{% endblock %}

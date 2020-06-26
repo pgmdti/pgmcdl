@@ -1,0 +1,57 @@
+{% extends 'pgm/base.html' %}
+
+
+{% block content %}
+    <br><br>
+  <div class="col-sm-6 offset-sm-2">
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <h3>Listar CDA's</h3>
+        <br>
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12">
+                <label>{{ form.vencimento_de.label }}</label>
+                {{ form.vencimento_de }}
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <label>{{ form.vencimento_ate.label }}</label>
+                {{ form.vencimento_ate }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12">
+                <label>{{ form.valor_de.label }}</label>
+                {{ form.valor_de }}
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <label>{{ form.valor_ate.label }}</label>
+                {{ form.valor_ate }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12">
+                <label>{{ form.codigo_receita.label }}</label>
+                {{ form.codigo_receita }}
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <label>{{ form.ajuizado.label }}</label>
+                {{ form.ajuizado }}
+            </div>
+        </div>
+
+        <br>
+
+        <button class="btn btn-primary" type="submit">Enviar</button>
+        <br><br>
+    </form>
+  </div>
+
+{% endblock %}
